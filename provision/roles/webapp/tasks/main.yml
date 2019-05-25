@@ -1,0 +1,13 @@
+---
+
+- name: Build the artifact
+  include: build.yml
+  tags:
+  - webapp
+  - webapp-build
+
+- name: Systemd settings
+  include: systemd.yml
+  tags:
+  - webapp
+  - webapp-systemd

@@ -1,0 +1,16 @@
+[Unit]
+Description=The webapp unit
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+
+ExecStart=/bin/java -Dserver.port={{ webapp_server_port }} -jar {{ webapp_file_name_path }}
+
+KillSignal=SIGQUIT
+TimeoutStopSec=5
+KillMode=process
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

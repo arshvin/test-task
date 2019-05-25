@@ -1,0 +1,4 @@
+
+        location / {
+            proxy_pass http://localhost:{{ webapp_server_port }}/stat/;
+        }

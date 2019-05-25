@@ -1,0 +1,10 @@
+---
+
+- name: Ensure Ansible packages for SELinux are installed
+  yum:
+    name: libselinux-python
+    state: present
+
+- name: Completely disable SELinux
+  selinux:
+    state: disabled

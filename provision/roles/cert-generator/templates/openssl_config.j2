@@ -1,0 +1,14 @@
+[ req ]
+default_bits           = 2048
+default_keyfile        = privkey.pem
+distinguished_name     = req_distinguished_name
+prompt                 = no
+
+[ req_distinguished_name ]
+C                      = {{ cert_generator_config.C }}
+ST                     = {{ cert_generator_config.ST }}
+L                      = {{ cert_generator_config.L}}
+O                      = {{ cert_generator_config.O }}
+OU                     = {{ cert_generator_config.OU }} 
+CN                     = {{ cert_generator_config.CN }}
+emailAddress           = {{ cert_generator_config.emailAddress }}

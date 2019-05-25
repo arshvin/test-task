@@ -1,0 +1,19 @@
+---
+
+- name: Installing Nginx
+  include: install.yml
+  tags:
+  - nginx
+  - nginx-intall
+
+- name: Configure
+  include: configure.yml
+  tags:
+  - nginx
+  - nginx-config
+
+- name: SystemD
+  include: systemd.yml
+  tags:
+  - nginx
+  - nginx-systemd

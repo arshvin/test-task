@@ -1,0 +1,13 @@
+---
+
+- name: Configure the Server
+  template:
+    src: nginx.j2
+    dest: /etc/nginx/nginx.conf
+  register: nginx_server_config
+
+- name: Configure the site config
+  template:
+    src: webapp.j2
+    dest: /etc/nginx/conf.d/webapp.conf
+  register: nginx_site_config

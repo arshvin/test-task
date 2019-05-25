@@ -1,0 +1,7 @@
+---
+
+nginx_tls_use: yes
+
+nginx_cert_location: "/etc/nginx"
+nginx_key_file: "cert.key"
+nginx_cert_file: "cert.crt"

@@ -1,0 +1,10 @@
+---
+
+- name: Provision the machine
+  hosts: localhost
+  become: yes
+  roles:
+  - epel
+  - disable-selinux
+  - nginx
+  - webapp
