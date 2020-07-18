@@ -3,3 +3,7 @@ build/
 .idea/
 .vagrant/
 .vscode
+.classpath
+.project
+.settings/
+bin/

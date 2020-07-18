@@ -1,13 +1,12 @@
 package prived.medved.controllers;
 
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import prived.medved.response.*;
 import prived.medved.response.enums.EntityType;
 import prived.medved.response.enums.IPsCount;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.net.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,27 +14,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
-@Path("/stat/")
-@Produces("application/json")
-public class EntryEndPoint {
+@RestController
+public class EntryPoint {
 
-    @GET
-    @Path("date")
+    @GetMapping("/date")
     public SimpleEntity getNowDate(){
 
         return new SimpleEntity(EntityType.DATE_NOW, LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy MM dd")));
     }
 
-    @GET
-    @Path("time")
+    @GetMapping("/time")
     public SimpleEntity getNowTime(){
 
         return new SimpleEntity(EntityType.TIME_NOW, LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
     }
 
-    @GET
-    @Path("ip")
+    @GetMapping("/ip")
     public IfaceEntity getIP() throws SocketException {
 
         Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces();
@@ -65,8 +59,7 @@ public class EntryEndPoint {
         return new IfaceEntity(EntityType.IP_V4, count, ipList);
     }
 
-    @GET
-    @Path("cpu")
+    @GetMapping("/cpu")
     public SimpleEntity getCPUs(){
 
         int cpuCount = Runtime.getRuntime().availableProcessors();

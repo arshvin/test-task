@@ -12,7 +12,7 @@ cert_generator_overrite_existed: no
 
 cert_generator_config:
   C:            RU
-  ST:           MKS
+  ST:           MSK
   L:            MSK
   O:            SomeCompany
   OU:           Sales
