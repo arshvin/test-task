@@ -1,0 +1,449 @@
+{
+	"name": "04_EMS_INITIAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_13d",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_13d",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "idn-raw/ems/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_13d",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_13d",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "adminaccesscontrol"
+						},
+						"destination": {
+							"fileName": "adminaccesscontrol"
+						}
+					},
+					{
+						"source": {
+							"tableName": "admineventaccessright"
+						},
+						"destination": {
+							"fileName": "admineventaccessright"
+						}
+					},
+					{
+						"source": {
+							"tableName": "admingroup"
+						},
+						"destination": {
+							"fileName": "admingroup"
+						}
+					},
+					{
+						"source": {
+							"tableName": "admininfo"
+						},
+						"destination": {
+							"fileName": "admininfo"
+						}
+					},
+					{
+						"source": {
+							"tableName": "admintier"
+						},
+						"destination": {
+							"fileName": "admintier"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventaccomodation"
+						},
+						"destination": {
+							"fileName": "eventaccomodation"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventapprovalhistory"
+						},
+						"destination": {
+							"fileName": "eventapprovalhistory"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventbrand"
+						},
+						"destination": {
+							"fileName": "eventbrand"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventbudgeting"
+						},
+						"destination": {
+							"fileName": "eventbudgeting"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventbus"
+						},
+						"destination": {
+							"fileName": "eventbus"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventdesccards"
+						},
+						"destination": {
+							"fileName": "eventdesccards"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventdocuments"
+						},
+						"destination": {
+							"fileName": "eventdocuments"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventexpenses"
+						},
+						"destination": {
+							"fileName": "eventexpenses"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventexpensesmod"
+						},
+						"destination": {
+							"fileName": "eventexpensesmod"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventflight"
+						},
+						"destination": {
+							"fileName": "eventflight"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventfunction"
+						},
+						"destination": {
+							"fileName": "eventfunction"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventinfo"
+						},
+						"destination": {
+							"fileName": "eventinfo"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventpictures"
+						},
+						"destination": {
+							"fileName": "eventpictures"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventpostevalquestions"
+						},
+						"destination": {
+							"fileName": "eventpostevalquestions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventpreevalquestions"
+						},
+						"destination": {
+							"fileName": "eventpreevalquestions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventrundown"
+						},
+						"destination": {
+							"fileName": "eventrundown"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventrundownspeakers"
+						},
+						"destination": {
+							"fileName": "eventrundownspeakers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventschedule"
+						},
+						"destination": {
+							"fileName": "eventschedule"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventseminarquestions"
+						},
+						"destination": {
+							"fileName": "eventseminarquestions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventtrain"
+						},
+						"destination": {
+							"fileName": "eventtrain"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventtransport"
+						},
+						"destination": {
+							"fileName": "eventtransport"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventtransporttickets"
+						},
+						"destination": {
+							"fileName": "eventtransporttickets"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventtype"
+						},
+						"destination": {
+							"fileName": "eventtype"
+						}
+					},
+					{
+						"source": {
+							"tableName": "eventtypegroup"
+						},
+						"destination": {
+							"fileName": "eventtypegroup"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcpeventaccept"
+						},
+						"destination": {
+							"fileName": "hcpeventaccept"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcpeventqr"
+						},
+						"destination": {
+							"fileName": "hcpeventqr"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcpeventregistration"
+						},
+						"destination": {
+							"fileName": "hcpeventregistration"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcplist"
+						},
+						"destination": {
+							"fileName": "hcplist"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcppostevalanswers"
+						},
+						"destination": {
+							"fileName": "hcppostevalanswers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcppreevalanswers"
+						},
+						"destination": {
+							"fileName": "hcppreevalanswers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcptalkshowquestions"
+						},
+						"destination": {
+							"fileName": "hcptalkshowquestions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "hcptokens"
+						},
+						"destination": {
+							"fileName": "hcptokens"
+						}
+					},
+					{
+						"source": {
+							"tableName": "pwcomplexity"
+						},
+						"destination": {
+							"fileName": "pwcomplexity"
+						}
+					},
+					{
+						"source": {
+							"tableName": "region"
+						},
+						"destination": {
+							"fileName": "region"
+						}
+					},
+					{
+						"source": {
+							"tableName": "regionvenue"
+						},
+						"destination": {
+							"fileName": "regionvenue"
+						}
+					},
+					{
+						"source": {
+							"tableName": "speakercategory"
+						},
+						"destination": {
+							"fileName": "speakercategory"
+						}
+					},
+					{
+						"source": {
+							"tableName": "speakerlist"
+						},
+						"destination": {
+							"fileName": "speakerlist"
+						}
+					},
+					{
+						"source": {
+							"tableName": "surveyquestionlist"
+						},
+						"destination": {
+							"fileName": "surveyquestionlist"
+						}
+					},
+					{
+						"source": {
+							"tableName": "surveyset"
+						},
+						"destination": {
+							"fileName": "surveyset"
+						}
+					},
+					{
+						"source": {
+							"tableName": "surveysetquestions"
+						},
+						"destination": {
+							"fileName": "surveysetquestions"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-01-14T08:01:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

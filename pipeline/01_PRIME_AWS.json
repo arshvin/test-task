@@ -1,0 +1,158 @@
+{
+	"name": "01_PRIME_AWS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_4lr",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "`actualvisit`"
+					},
+					{
+						"name": "Destination",
+						"value": "idn-raw/@{replace('prime/CURRENT_DATE','CURRENT_DATE',utcnow('yyyy-MM-dd'))}/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"maxConcurrentConnections": 1,
+							"blockSizeInMB": 100
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings",
+							"filePattern": "setOfObjects"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "internalid",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['internalid']"
+								}
+							},
+							{
+								"source": {
+									"name": "schedid",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['schedid']"
+								}
+							},
+							{
+								"source": {
+									"name": "visittime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"path": "$['visittime']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitend",
+									"type": "DateTime"
+								},
+								"sink": {
+									"path": "$['visitend']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitlat",
+									"type": "Double"
+								},
+								"sink": {
+									"path": "$['visitlat']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitlng",
+									"type": "Double"
+								},
+								"sink": {
+									"path": "$['visitlng']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitduration",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['visitduration']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitnumber",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['visitnumber']"
+								}
+							},
+							{
+								"source": {
+									"name": "submitteddate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"path": "$['submitteddate']"
+								}
+							},
+							{
+								"source": {
+									"name": "visitrating",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['visitrating']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_4lr",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_4lr",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-01-12T18:38:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

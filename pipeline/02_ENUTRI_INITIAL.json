@@ -1,0 +1,985 @@
+{
+	"name": "02_ENUTRI_INITIAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_t3h",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_t3h",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "idn-raw//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ENUTRI_SOURCES",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "NUTRI_DESTINATION",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "activity_by_province"
+						},
+						"destination": {
+							"fileName": "activity_by_province"
+						}
+					},
+					{
+						"source": {
+							"tableName": "activity_log"
+						},
+						"destination": {
+							"fileName": "activity_log"
+						}
+					},
+					{
+						"source": {
+							"tableName": "admins"
+						},
+						"destination": {
+							"fileName": "admins"
+						}
+					},
+					{
+						"source": {
+							"tableName": "bookmarks"
+						},
+						"destination": {
+							"fileName": "bookmarks"
+						}
+					},
+					{
+						"source": {
+							"tableName": "categories"
+						},
+						"destination": {
+							"fileName": "categories"
+						}
+					},
+					{
+						"source": {
+							"tableName": "certificate_numbers"
+						},
+						"destination": {
+							"fileName": "certificate_numbers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "cities"
+						},
+						"destination": {
+							"fileName": "cities"
+						}
+					},
+					{
+						"source": {
+							"tableName": "comments"
+						},
+						"destination": {
+							"fileName": "comments"
+						}
+					},
+					{
+						"source": {
+							"tableName": "districts"
+						},
+						"destination": {
+							"fileName": "districts"
+						}
+					},
+					{
+						"source": {
+							"tableName": "doctor_vp"
+						},
+						"destination": {
+							"fileName": "doctor_vp"
+						}
+					},
+					{
+						"source": {
+							"tableName": "doctors"
+						},
+						"destination": {
+							"fileName": "doctors"
+						}
+					},
+					{
+						"source": {
+							"tableName": "education_categories"
+						},
+						"destination": {
+							"fileName": "education_categories"
+						}
+					},
+					{
+						"source": {
+							"tableName": "event_periods"
+						},
+						"destination": {
+							"fileName": "event_periods"
+						}
+					},
+					{
+						"source": {
+							"tableName": "exports"
+						},
+						"destination": {
+							"fileName": "exports"
+						}
+					},
+					{
+						"source": {
+							"tableName": "fibre_categories"
+						},
+						"destination": {
+							"fileName": "fibre_categories"
+						}
+					},
+					{
+						"source": {
+							"tableName": "fibre_foods"
+						},
+						"destination": {
+							"fileName": "fibre_foods"
+						}
+					},
+					{
+						"source": {
+							"tableName": "fibre_units"
+						},
+						"destination": {
+							"fileName": "fibre_units"
+						}
+					},
+					{
+						"source": {
+							"tableName": "files"
+						},
+						"destination": {
+							"fileName": "files"
+						}
+					},
+					{
+						"source": {
+							"tableName": "gallery_categories"
+						},
+						"destination": {
+							"fileName": "gallery_categories"
+						}
+					},
+					{
+						"source": {
+							"tableName": "healthcare_professionals"
+						},
+						"destination": {
+							"fileName": "healthcare_professionals"
+						}
+					},
+					{
+						"source": {
+							"tableName": "iron_reports"
+						},
+						"destination": {
+							"fileName": "iron_reports"
+						}
+					},
+					{
+						"source": {
+							"tableName": "iron_test_results"
+						},
+						"destination": {
+							"fileName": "iron_test_results"
+						}
+					},
+					{
+						"source": {
+							"tableName": "jobs"
+						},
+						"destination": {
+							"fileName": "jobs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "kta"
+						},
+						"destination": {
+							"fileName": "kta"
+						}
+					},
+					{
+						"source": {
+							"tableName": "kulwap_participants"
+						},
+						"destination": {
+							"fileName": "kulwap_participants"
+						}
+					},
+					{
+						"source": {
+							"tableName": "kulwaps"
+						},
+						"destination": {
+							"fileName": "kulwaps"
+						}
+					},
+					{
+						"source": {
+							"tableName": "last_educations"
+						},
+						"destination": {
+							"fileName": "last_educations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "message_answers"
+						},
+						"destination": {
+							"fileName": "message_answers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "messages"
+						},
+						"destination": {
+							"fileName": "messages"
+						}
+					},
+					{
+						"source": {
+							"tableName": "migrations"
+						},
+						"destination": {
+							"fileName": "migrations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "model_has_permissions"
+						},
+						"destination": {
+							"fileName": "model_has_permissions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "model_has_roles"
+						},
+						"destination": {
+							"fileName": "model_has_roles"
+						}
+					},
+					{
+						"source": {
+							"tableName": "notif_jobs"
+						},
+						"destination": {
+							"fileName": "notif_jobs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "notif"
+						},
+						"destination": {
+							"fileName": "notif"
+						}
+					},
+					{
+						"source": {
+							"tableName": "oauth_access_tokens"
+						},
+						"destination": {
+							"fileName": "oauth_access_tokens"
+						}
+					},
+					{
+						"source": {
+							"tableName": "oauth_auth_codes"
+						},
+						"destination": {
+							"fileName": "oauth_auth_codes"
+						}
+					},
+					{
+						"source": {
+							"tableName": "oauth_clients"
+						},
+						"destination": {
+							"fileName": "oauth_clients"
+						}
+					},
+					{
+						"source": {
+							"tableName": "oauth_personal_access_clients"
+						},
+						"destination": {
+							"fileName": "oauth_personal_access_clients"
+						}
+					},
+					{
+						"source": {
+							"tableName": "oauth_refresh_tokens"
+						},
+						"destination": {
+							"fileName": "oauth_refresh_tokens"
+						}
+					},
+					{
+						"source": {
+							"tableName": "password_resets"
+						},
+						"destination": {
+							"fileName": "password_resets"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_health_status_and_risks"
+						},
+						"destination": {
+							"fileName": "patient_health_status_and_risks"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_jobs"
+						},
+						"destination": {
+							"fileName": "patient_jobs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_labor_statuses"
+						},
+						"destination": {
+							"fileName": "patient_labor_statuses"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_nutritional_statuses"
+						},
+						"destination": {
+							"fileName": "patient_nutritional_statuses"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_pregnancy_statuses"
+						},
+						"destination": {
+							"fileName": "patient_pregnancy_statuses"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_puerperiums"
+						},
+						"destination": {
+							"fileName": "patient_puerperiums"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_summaries"
+						},
+						"destination": {
+							"fileName": "patient_summaries"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patient_visits"
+						},
+						"destination": {
+							"fileName": "patient_visits"
+						}
+					},
+					{
+						"source": {
+							"tableName": "patients"
+						},
+						"destination": {
+							"fileName": "patients"
+						}
+					},
+					{
+						"source": {
+							"tableName": "permissions"
+						},
+						"destination": {
+							"fileName": "permissions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "posts"
+						},
+						"destination": {
+							"fileName": "posts"
+						}
+					},
+					{
+						"source": {
+							"tableName": "products"
+						},
+						"destination": {
+							"fileName": "products"
+						}
+					},
+					{
+						"source": {
+							"tableName": "progress"
+						},
+						"destination": {
+							"fileName": "progress"
+						}
+					},
+					{
+						"source": {
+							"tableName": "provinces"
+						},
+						"destination": {
+							"fileName": "provinces"
+						}
+					},
+					{
+						"source": {
+							"tableName": "qiscus_rooms"
+						},
+						"destination": {
+							"fileName": "qiscus_rooms"
+						}
+					},
+					{
+						"source": {
+							"tableName": "qiscus_users"
+						},
+						"destination": {
+							"fileName": "qiscus_users"
+						}
+					},
+					{
+						"source": {
+							"tableName": "question_groups"
+						},
+						"destination": {
+							"fileName": "question_groups"
+						}
+					},
+					{
+						"source": {
+							"tableName": "questions"
+						},
+						"destination": {
+							"fileName": "questions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "quiz_answers"
+						},
+						"destination": {
+							"fileName": "quiz_answers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "quiz_scores"
+						},
+						"destination": {
+							"fileName": "quiz_scores"
+						}
+					},
+					{
+						"source": {
+							"tableName": "quizes"
+						},
+						"destination": {
+							"fileName": "quizes"
+						}
+					},
+					{
+						"source": {
+							"tableName": "quota"
+						},
+						"destination": {
+							"fileName": "quota"
+						}
+					},
+					{
+						"source": {
+							"tableName": "redeem"
+						},
+						"destination": {
+							"fileName": "redeem"
+						}
+					},
+					{
+						"source": {
+							"tableName": "role_has_permissions"
+						},
+						"destination": {
+							"fileName": "role_has_permissions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "roles"
+						},
+						"destination": {
+							"fileName": "roles"
+						}
+					},
+					{
+						"source": {
+							"tableName": "sessions"
+						},
+						"destination": {
+							"fileName": "sessions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "settings"
+						},
+						"destination": {
+							"fileName": "settings"
+						}
+					},
+					{
+						"source": {
+							"tableName": "signatures"
+						},
+						"destination": {
+							"fileName": "signatures"
+						}
+					},
+					{
+						"source": {
+							"tableName": "survey_answers"
+						},
+						"destination": {
+							"fileName": "survey_answers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "survey_questions"
+						},
+						"destination": {
+							"fileName": "survey_questions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "survey_responses"
+						},
+						"destination": {
+							"fileName": "survey_responses"
+						}
+					},
+					{
+						"source": {
+							"tableName": "survey_scores"
+						},
+						"destination": {
+							"fileName": "survey_scores"
+						}
+					},
+					{
+						"source": {
+							"tableName": "survey_users"
+						},
+						"destination": {
+							"fileName": "survey_users"
+						}
+					},
+					{
+						"source": {
+							"tableName": "surveys"
+						},
+						"destination": {
+							"fileName": "surveys"
+						}
+					},
+					{
+						"source": {
+							"tableName": "toggle_features"
+						},
+						"destination": {
+							"fileName": "toggle_features"
+						}
+					},
+					{
+						"source": {
+							"tableName": "type_age"
+						},
+						"destination": {
+							"fileName": "type_age"
+						}
+					},
+					{
+						"source": {
+							"tableName": "type_growth"
+						},
+						"destination": {
+							"fileName": "type_growth"
+						}
+					},
+					{
+						"source": {
+							"tableName": "types_categories"
+						},
+						"destination": {
+							"fileName": "types_categories"
+						}
+					},
+					{
+						"source": {
+							"tableName": "types"
+						},
+						"destination": {
+							"fileName": "types"
+						}
+					},
+					{
+						"source": {
+							"tableName": "user_answers"
+						},
+						"destination": {
+							"fileName": "user_answers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users"
+						},
+						"destination": {
+							"fileName": "users"
+						}
+					},
+					{
+						"source": {
+							"tableName": "versions"
+						},
+						"destination": {
+							"fileName": "versions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_activity_user"
+						},
+						"destination": {
+							"fileName": "view_activity_user"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_aktivitas_user_custom"
+						},
+						"destination": {
+							"fileName": "view_aktivitas_user_custom"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_aktivitas_user_weekly"
+						},
+						"destination": {
+							"fileName": "view_aktivitas_user_weekly"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_all_comments"
+						},
+						"destination": {
+							"fileName": "view_all_comments"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_all_inspiring_winner"
+						},
+						"destination": {
+							"fileName": "view_all_inspiring_winner"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_comment_like_gallery"
+						},
+						"destination": {
+							"fileName": "view_comment_like_gallery"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_comments_infographic"
+						},
+						"destination": {
+							"fileName": "view_comments_infographic"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_count_poin_by_month_and_user"
+						},
+						"destination": {
+							"fileName": "view_count_poin_by_month_and_user"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_count_user_active"
+						},
+						"destination": {
+							"fileName": "view_count_user_active"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_data_user"
+						},
+						"destination": {
+							"fileName": "view_data_user"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_forum_summary"
+						},
+						"destination": {
+							"fileName": "view_forum_summary"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_infographic_summary"
+						},
+						"destination": {
+							"fileName": "view_infographic_summary"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_most_active_user"
+						},
+						"destination": {
+							"fileName": "view_most_active_user"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_poin"
+						},
+						"destination": {
+							"fileName": "view_poin"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_quota_all"
+						},
+						"destination": {
+							"fileName": "view_quota_all"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_quota_left"
+						},
+						"destination": {
+							"fileName": "view_quota_left"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_report_e-learning"
+						},
+						"destination": {
+							"fileName": "view_report_e-learning"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_time_user"
+						},
+						"destination": {
+							"fileName": "view_time_user"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_top_forum_by_title"
+						},
+						"destination": {
+							"fileName": "view_top_forum_by_title"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_user_active"
+						},
+						"destination": {
+							"fileName": "view_user_active"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_user_by_province"
+						},
+						"destination": {
+							"fileName": "view_user_by_province"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_user_fitur_by_jumlah"
+						},
+						"destination": {
+							"fileName": "view_user_fitur_by_jumlah"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_user_regis_and_user_active"
+						},
+						"destination": {
+							"fileName": "view_user_regis_and_user_active"
+						}
+					},
+					{
+						"source": {
+							"tableName": "view_video_summary"
+						},
+						"destination": {
+							"fileName": "view_video_summary"
+						}
+					},
+					{
+						"source": {
+							"tableName": "villages"
+						},
+						"destination": {
+							"fileName": "villages"
+						}
+					},
+					{
+						"source": {
+							"tableName": "votes"
+						},
+						"destination": {
+							"fileName": "votes"
+						}
+					},
+					{
+						"source": {
+							"tableName": "webinar_participants"
+						},
+						"destination": {
+							"fileName": "webinar_participants"
+						}
+					},
+					{
+						"source": {
+							"tableName": "webinar_registers"
+						},
+						"destination": {
+							"fileName": "webinar_registers"
+						}
+					},
+					{
+						"source": {
+							"tableName": "webinars"
+						},
+						"destination": {
+							"fileName": "webinars"
+						}
+					},
+					{
+						"source": {
+							"tableName": "whatsapp_links"
+						},
+						"destination": {
+							"fileName": "whatsapp_links"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-01-14T06:47:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

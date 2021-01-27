@@ -1,0 +1,24 @@
+{
+	"name": "Trigger_4lr",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "01_PRIME_AWS",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2021-01-12T09:20:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

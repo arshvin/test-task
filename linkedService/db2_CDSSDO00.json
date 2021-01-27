@@ -1,0 +1,27 @@
+{
+	"name": "db2_CDSSDO00",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"connectVia": {
+			"referenceName": "ingestion-idn-hcpmce",
+			"type": "IntegrationRuntimeReference"
+		},
+		"type": "Db2",
+		"typeProperties": {
+			"authenticationType": "Basic",
+			"database": "CDSSDO00",
+			"packageCollection": "db2oper",
+			"password": {
+				"secretName": "on-prem-password",
+				"store": {
+					"referenceName": "DAN-AP-T-KVT800-S-DS-HCP",
+					"type": "LinkedServiceReference"
+				},
+				"type": "AzureKeyVaultSecret"
+			},
+			"server": "uedcb622.frmon.danet:60031",
+			"username": "edwedl"
+		}
+	}
+}

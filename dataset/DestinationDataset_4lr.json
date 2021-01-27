@@ -1,0 +1,23 @@
+{
+	"name": "DestinationDataset_4lr",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake_msi",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@replace('prime/CURRENT_DATE','CURRENT_DATE',utcnow('yyyy-MM-dd'))",
+					"type": "Expression"
+				},
+				"fileSystem": "idn-raw"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

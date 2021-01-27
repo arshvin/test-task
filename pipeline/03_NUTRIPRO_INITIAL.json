@@ -1,0 +1,1337 @@
+{
+	"name": "03_NUTRIPRO_INITIAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_qfo",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_qfo",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "idn-raw/nutripro/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_qfo",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_qfo",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "application_logs"
+						},
+						"destination": {
+							"fileName": "application_logs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "assets_metadata"
+						},
+						"destination": {
+							"fileName": "assets_metadata"
+						}
+					},
+					{
+						"source": {
+							"tableName": "assets"
+						},
+						"destination": {
+							"fileName": "assets"
+						}
+					},
+					{
+						"source": {
+							"tableName": "bundle_elasticsearch_config"
+						},
+						"destination": {
+							"fileName": "bundle_elasticsearch_config"
+						}
+					},
+					{
+						"source": {
+							"tableName": "bundle_elasticsearch_index_rule"
+						},
+						"destination": {
+							"fileName": "bundle_elasticsearch_index_rule"
+						}
+					},
+					{
+						"source": {
+							"tableName": "bundle_seoserp_seo_rule"
+						},
+						"destination": {
+							"fileName": "bundle_seoserp_seo_rule"
+						}
+					},
+					{
+						"source": {
+							"tableName": "bundle_seoserp_seo"
+						},
+						"destination": {
+							"fileName": "bundle_seoserp_seo"
+						}
+					},
+					{
+						"source": {
+							"tableName": "cache_tags"
+						},
+						"destination": {
+							"fileName": "cache_tags"
+						}
+					},
+					{
+						"source": {
+							"tableName": "cache"
+						},
+						"destination": {
+							"fileName": "cache"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classes"
+						},
+						"destination": {
+							"fileName": "classes"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_collectionrelations"
+						},
+						"destination": {
+							"fileName": "classificationstore_collectionrelations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_collections"
+						},
+						"destination": {
+							"fileName": "classificationstore_collections"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_groups"
+						},
+						"destination": {
+							"fileName": "classificationstore_groups"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_keys"
+						},
+						"destination": {
+							"fileName": "classificationstore_keys"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_relations"
+						},
+						"destination": {
+							"fileName": "classificationstore_relations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "classificationstore_stores"
+						},
+						"destination": {
+							"fileName": "classificationstore_stores"
+						}
+					},
+					{
+						"source": {
+							"tableName": "custom_layouts"
+						},
+						"destination": {
+							"fileName": "custom_layouts"
+						}
+					},
+					{
+						"source": {
+							"tableName": "dependencies"
+						},
+						"destination": {
+							"fileName": "dependencies"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_elements"
+						},
+						"destination": {
+							"fileName": "documents_elements"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_email"
+						},
+						"destination": {
+							"fileName": "documents_email"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_hardlink"
+						},
+						"destination": {
+							"fileName": "documents_hardlink"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_link"
+						},
+						"destination": {
+							"fileName": "documents_link"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_newsletter"
+						},
+						"destination": {
+							"fileName": "documents_newsletter"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_page"
+						},
+						"destination": {
+							"fileName": "documents_page"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_printpage"
+						},
+						"destination": {
+							"fileName": "documents_printpage"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_snippet"
+						},
+						"destination": {
+							"fileName": "documents_snippet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents_translations"
+						},
+						"destination": {
+							"fileName": "documents_translations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "documents"
+						},
+						"destination": {
+							"fileName": "documents"
+						}
+					},
+					{
+						"source": {
+							"tableName": "edit_lock"
+						},
+						"destination": {
+							"fileName": "edit_lock"
+						}
+					},
+					{
+						"source": {
+							"tableName": "element_workflow_state"
+						},
+						"destination": {
+							"fileName": "element_workflow_state"
+						}
+					},
+					{
+						"source": {
+							"tableName": "email_blacklist"
+						},
+						"destination": {
+							"fileName": "email_blacklist"
+						}
+					},
+					{
+						"source": {
+							"tableName": "email_log"
+						},
+						"destination": {
+							"fileName": "email_log"
+						}
+					},
+					{
+						"source": {
+							"tableName": "glossary"
+						},
+						"destination": {
+							"fileName": "glossary"
+						}
+					},
+					{
+						"source": {
+							"tableName": "gridconfig_favourites"
+						},
+						"destination": {
+							"fileName": "gridconfig_favourites"
+						}
+					},
+					{
+						"source": {
+							"tableName": "gridconfig_shares"
+						},
+						"destination": {
+							"fileName": "gridconfig_shares"
+						}
+					},
+					{
+						"source": {
+							"tableName": "gridconfigs"
+						},
+						"destination": {
+							"fileName": "gridconfigs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "http_error_log"
+						},
+						"destination": {
+							"fileName": "http_error_log"
+						}
+					},
+					{
+						"source": {
+							"tableName": "importconfig_shares"
+						},
+						"destination": {
+							"fileName": "importconfig_shares"
+						}
+					},
+					{
+						"source": {
+							"tableName": "importconfigs"
+						},
+						"destination": {
+							"fileName": "importconfigs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "locks"
+						},
+						"destination": {
+							"fileName": "locks"
+						}
+					},
+					{
+						"source": {
+							"tableName": "notes_data"
+						},
+						"destination": {
+							"fileName": "notes_data"
+						}
+					},
+					{
+						"source": {
+							"tableName": "notes"
+						},
+						"destination": {
+							"fileName": "notes"
+						}
+					},
+					{
+						"source": {
+							"tableName": "notifications"
+						},
+						"destination": {
+							"fileName": "notifications"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_ArticleVideo_2"
+						},
+						"destination": {
+							"fileName": "object_collection_ArticleVideo_2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_LessonMaterialItem_36"
+						},
+						"destination": {
+							"fileName": "object_collection_LessonMaterialItem_36"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_LessonQuizAnswer_34"
+						},
+						"destination": {
+							"fileName": "object_collection_LessonQuizAnswer_34"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_MemberHospital_3"
+						},
+						"destination": {
+							"fileName": "object_collection_MemberHospital_3"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_MemberInterest_3"
+						},
+						"destination": {
+							"fileName": "object_collection_MemberInterest_3"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_ResearchCityVideo_9"
+						},
+						"destination": {
+							"fileName": "object_collection_ResearchCityVideo_9"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_VideoTimeTrack_36"
+						},
+						"destination": {
+							"fileName": "object_collection_VideoTimeTrack_36"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_WebinarQuizAnswer_45"
+						},
+						"destination": {
+							"fileName": "object_collection_WebinarQuizAnswer_45"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_collection_WebinarSectionItem_40"
+						},
+						"destination": {
+							"fileName": "object_collection_WebinarSectionItem_40"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_10"
+						},
+						"destination": {
+							"fileName": "object_query_10"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_12"
+						},
+						"destination": {
+							"fileName": "object_query_12"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_13"
+						},
+						"destination": {
+							"fileName": "object_query_13"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_17"
+						},
+						"destination": {
+							"fileName": "object_query_17"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_18"
+						},
+						"destination": {
+							"fileName": "object_query_18"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_19"
+						},
+						"destination": {
+							"fileName": "object_query_19"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_1"
+						},
+						"destination": {
+							"fileName": "object_query_1"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_20"
+						},
+						"destination": {
+							"fileName": "object_query_20"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_21"
+						},
+						"destination": {
+							"fileName": "object_query_21"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_22"
+						},
+						"destination": {
+							"fileName": "object_query_22"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_23"
+						},
+						"destination": {
+							"fileName": "object_query_23"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_24"
+						},
+						"destination": {
+							"fileName": "object_query_24"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_25"
+						},
+						"destination": {
+							"fileName": "object_query_25"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_26"
+						},
+						"destination": {
+							"fileName": "object_query_26"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_27"
+						},
+						"destination": {
+							"fileName": "object_query_27"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_2"
+						},
+						"destination": {
+							"fileName": "object_query_2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_3"
+						},
+						"destination": {
+							"fileName": "object_query_3"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_4"
+						},
+						"destination": {
+							"fileName": "object_query_4"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_54"
+						},
+						"destination": {
+							"fileName": "object_query_54"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_55"
+						},
+						"destination": {
+							"fileName": "object_query_55"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_56"
+						},
+						"destination": {
+							"fileName": "object_query_56"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_57"
+						},
+						"destination": {
+							"fileName": "object_query_57"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_5"
+						},
+						"destination": {
+							"fileName": "object_query_5"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_6"
+						},
+						"destination": {
+							"fileName": "object_query_6"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_7"
+						},
+						"destination": {
+							"fileName": "object_query_7"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_8"
+						},
+						"destination": {
+							"fileName": "object_query_8"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_query_9"
+						},
+						"destination": {
+							"fileName": "object_query_9"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_10"
+						},
+						"destination": {
+							"fileName": "object_relations_10"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_12"
+						},
+						"destination": {
+							"fileName": "object_relations_12"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_13"
+						},
+						"destination": {
+							"fileName": "object_relations_13"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_17"
+						},
+						"destination": {
+							"fileName": "object_relations_17"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_18"
+						},
+						"destination": {
+							"fileName": "object_relations_18"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_19"
+						},
+						"destination": {
+							"fileName": "object_relations_19"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_1"
+						},
+						"destination": {
+							"fileName": "object_relations_1"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_20"
+						},
+						"destination": {
+							"fileName": "object_relations_20"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_21"
+						},
+						"destination": {
+							"fileName": "object_relations_21"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_22"
+						},
+						"destination": {
+							"fileName": "object_relations_22"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_23"
+						},
+						"destination": {
+							"fileName": "object_relations_23"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_2"
+						},
+						"destination": {
+							"fileName": "object_relations_2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_3"
+						},
+						"destination": {
+							"fileName": "object_relations_3"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_4"
+						},
+						"destination": {
+							"fileName": "object_relations_4"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_54"
+						},
+						"destination": {
+							"fileName": "object_relations_54"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_55"
+						},
+						"destination": {
+							"fileName": "object_relations_55"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_56"
+						},
+						"destination": {
+							"fileName": "object_relations_56"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_57"
+						},
+						"destination": {
+							"fileName": "object_relations_57"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_5"
+						},
+						"destination": {
+							"fileName": "object_relations_5"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_6"
+						},
+						"destination": {
+							"fileName": "object_relations_6"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_7"
+						},
+						"destination": {
+							"fileName": "object_relations_7"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_8"
+						},
+						"destination": {
+							"fileName": "object_relations_8"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_relations_9"
+						},
+						"destination": {
+							"fileName": "object_relations_9"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_10"
+						},
+						"destination": {
+							"fileName": "object_store_10"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_12"
+						},
+						"destination": {
+							"fileName": "object_store_12"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_13"
+						},
+						"destination": {
+							"fileName": "object_store_13"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_17"
+						},
+						"destination": {
+							"fileName": "object_store_17"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_18"
+						},
+						"destination": {
+							"fileName": "object_store_18"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_19"
+						},
+						"destination": {
+							"fileName": "object_store_19"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_1"
+						},
+						"destination": {
+							"fileName": "object_store_1"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_20"
+						},
+						"destination": {
+							"fileName": "object_store_20"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_21"
+						},
+						"destination": {
+							"fileName": "object_store_21"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_22"
+						},
+						"destination": {
+							"fileName": "object_store_22"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_23"
+						},
+						"destination": {
+							"fileName": "object_store_23"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_2"
+						},
+						"destination": {
+							"fileName": "object_store_2"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_3"
+						},
+						"destination": {
+							"fileName": "object_store_3"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_4"
+						},
+						"destination": {
+							"fileName": "object_store_4"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_54"
+						},
+						"destination": {
+							"fileName": "object_store_54"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_55"
+						},
+						"destination": {
+							"fileName": "object_store_55"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_56"
+						},
+						"destination": {
+							"fileName": "object_store_56"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_57"
+						},
+						"destination": {
+							"fileName": "object_store_57"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_5"
+						},
+						"destination": {
+							"fileName": "object_store_5"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_6"
+						},
+						"destination": {
+							"fileName": "object_store_6"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_7"
+						},
+						"destination": {
+							"fileName": "object_store_7"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_8"
+						},
+						"destination": {
+							"fileName": "object_store_8"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_store_9"
+						},
+						"destination": {
+							"fileName": "object_store_9"
+						}
+					},
+					{
+						"source": {
+							"tableName": "object_url_slugs"
+						},
+						"destination": {
+							"fileName": "object_url_slugs"
+						}
+					},
+					{
+						"source": {
+							"tableName": "objects"
+						},
+						"destination": {
+							"fileName": "objects"
+						}
+					},
+					{
+						"source": {
+							"tableName": "pimcore_migrations"
+						},
+						"destination": {
+							"fileName": "pimcore_migrations"
+						}
+					},
+					{
+						"source": {
+							"tableName": "predefined"
+						},
+						"destination": {
+							"fileName": "predefined"
+						}
+					},
+					{
+						"source": {
+							"tableName": "properties"
+						},
+						"destination": {
+							"fileName": "properties"
+						}
+					},
+					{
+						"source": {
+							"tableName": "quantityvalue_units"
+						},
+						"destination": {
+							"fileName": "quantityvalue_units"
+						}
+					},
+					{
+						"source": {
+							"tableName": "recyclebin"
+						},
+						"destination": {
+							"fileName": "recyclebin"
+						}
+					},
+					{
+						"source": {
+							"tableName": "redirects"
+						},
+						"destination": {
+							"fileName": "redirects"
+						}
+					},
+					{
+						"source": {
+							"tableName": "sanitycheck"
+						},
+						"destination": {
+							"fileName": "sanitycheck"
+						}
+					},
+					{
+						"source": {
+							"tableName": "schedule_tasks"
+						},
+						"destination": {
+							"fileName": "schedule_tasks"
+						}
+					},
+					{
+						"source": {
+							"tableName": "search_backend_data"
+						},
+						"destination": {
+							"fileName": "search_backend_data"
+						}
+					},
+					{
+						"source": {
+							"tableName": "sites"
+						},
+						"destination": {
+							"fileName": "sites"
+						}
+					},
+					{
+						"source": {
+							"tableName": "tags_assignment"
+						},
+						"destination": {
+							"fileName": "tags_assignment"
+						}
+					},
+					{
+						"source": {
+							"tableName": "tags"
+						},
+						"destination": {
+							"fileName": "tags"
+						}
+					},
+					{
+						"source": {
+							"tableName": "targeting_rules"
+						},
+						"destination": {
+							"fileName": "targeting_rules"
+						}
+					},
+					{
+						"source": {
+							"tableName": "targeting_storage"
+						},
+						"destination": {
+							"fileName": "targeting_storage"
+						}
+					},
+					{
+						"source": {
+							"tableName": "targeting_target_groups"
+						},
+						"destination": {
+							"fileName": "targeting_target_groups"
+						}
+					},
+					{
+						"source": {
+							"tableName": "tmp_store"
+						},
+						"destination": {
+							"fileName": "tmp_store"
+						}
+					},
+					{
+						"source": {
+							"tableName": "tracking_events"
+						},
+						"destination": {
+							"fileName": "tracking_events"
+						}
+					},
+					{
+						"source": {
+							"tableName": "translations_admin"
+						},
+						"destination": {
+							"fileName": "translations_admin"
+						}
+					},
+					{
+						"source": {
+							"tableName": "translations_website"
+						},
+						"destination": {
+							"fileName": "translations_website"
+						}
+					},
+					{
+						"source": {
+							"tableName": "tree_locks"
+						},
+						"destination": {
+							"fileName": "tree_locks"
+						}
+					},
+					{
+						"source": {
+							"tableName": "user_specialist_consent"
+						},
+						"destination": {
+							"fileName": "user_specialist_consent"
+						}
+					},
+					{
+						"source": {
+							"tableName": "user_specialist"
+						},
+						"destination": {
+							"fileName": "user_specialist"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users_permission_definitions"
+						},
+						"destination": {
+							"fileName": "users_permission_definitions"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users_workspaces_asset"
+						},
+						"destination": {
+							"fileName": "users_workspaces_asset"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users_workspaces_document"
+						},
+						"destination": {
+							"fileName": "users_workspaces_document"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users_workspaces_object"
+						},
+						"destination": {
+							"fileName": "users_workspaces_object"
+						}
+					},
+					{
+						"source": {
+							"tableName": "users"
+						},
+						"destination": {
+							"fileName": "users"
+						}
+					},
+					{
+						"source": {
+							"tableName": "uuids"
+						},
+						"destination": {
+							"fileName": "uuids"
+						}
+					},
+					{
+						"source": {
+							"tableName": "versions"
+						},
+						"destination": {
+							"fileName": "versions"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-01-14T07:54:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

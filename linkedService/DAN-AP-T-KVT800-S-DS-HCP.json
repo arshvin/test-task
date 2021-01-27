@@ -1,0 +1,11 @@
+{
+	"name": "DAN-AP-T-KVT800-S-DS-HCP",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://dan-ap-t-kvt800-s-ds-hcp.vault.azure.net/"
+		}
+	}
+}

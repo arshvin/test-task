@@ -1,0 +1,11 @@
+{
+	"name": "datalake_msi",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://danaptstasspkwerdekdgyqx.dfs.core.windows.net/"
+		}
+	}
+}

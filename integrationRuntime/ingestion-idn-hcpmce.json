@@ -1,0 +1,6 @@
+{
+	"name": "ingestion-idn-hcpmce",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

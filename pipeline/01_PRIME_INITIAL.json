@@ -1,0 +1,801 @@
+{
+	"name": "01_PRIME_INITIAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_hmz",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_hmz",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "PRIMESOURCE",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "PRIMEDESTINATION",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "`actualvisit`"
+						},
+						"destination": {
+							"fileName": "`actualvisit`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`city`"
+						},
+						"destination": {
+							"fileName": "`city`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatabirth`"
+						},
+						"destination": {
+							"fileName": "`closingdatabirth`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatadelivery`"
+						},
+						"destination": {
+							"fileName": "`closingdatadelivery`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatadeliveryvalues`"
+						},
+						"destination": {
+							"fileName": "`closingdatadeliveryvalues`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdataitr`"
+						},
+						"destination": {
+							"fileName": "`closingdataitr`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdataitrproducts`"
+						},
+						"destination": {
+							"fileName": "`closingdataitrproducts`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdataitrterritory`"
+						},
+						"destination": {
+							"fileName": "`closingdataitrterritory`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdataitrterritoryproducts`"
+						},
+						"destination": {
+							"fileName": "`closingdataitrterritoryproducts`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatapotency`"
+						},
+						"destination": {
+							"fileName": "`closingdatapotency`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatapotencyvalues`"
+						},
+						"destination": {
+							"fileName": "`closingdatapotencyvalues`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatashare`"
+						},
+						"destination": {
+							"fileName": "`closingdatashare`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatashareproducts`"
+						},
+						"destination": {
+							"fileName": "`closingdatashareproducts`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatasurvey`"
+						},
+						"destination": {
+							"fileName": "`closingdatasurvey`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdatasurveyanswers`"
+						},
+						"destination": {
+							"fileName": "`closingdatasurveyanswers`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdeliverycriteria`"
+						},
+						"destination": {
+							"fileName": "`closingdeliverycriteria`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingdeliveryreptypetoggling`"
+						},
+						"destination": {
+							"fileName": "`closingdeliveryreptypetoggling`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingpotencycriteria`"
+						},
+						"destination": {
+							"fileName": "`closingpotencycriteria`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurvey`"
+						},
+						"destination": {
+							"fileName": "`closingsurvey`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycycle`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycycle`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycycleaccsegments`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycycleaccsegments`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycyclequestions`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycyclequestions`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycyclereptype`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycyclereptype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycycleroom`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycycleroom`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycyclesegment`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycyclesegment`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycyclespecialty`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycyclespecialty`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveycyclevisittype`"
+						},
+						"destination": {
+							"fileName": "`closingsurveycyclevisittype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`closingsurveyreptype`"
+						},
+						"destination": {
+							"fileName": "`closingsurveyreptype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cmsactivitytype`"
+						},
+						"destination": {
+							"fileName": "`cmsactivitytype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cmsuser`"
+						},
+						"destination": {
+							"fileName": "`cmsuser`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cmsuseractivity`"
+						},
+						"destination": {
+							"fileName": "`cmsuseractivity`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`contentmodules`"
+						},
+						"destination": {
+							"fileName": "`contentmodules`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`contentpages`"
+						},
+						"destination": {
+							"fileName": "`contentpages`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cycle`"
+						},
+						"destination": {
+							"fileName": "`cycle`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefilteraccsegment`"
+						},
+						"destination": {
+							"fileName": "`cyclefilteraccsegment`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefilterreptype`"
+						},
+						"destination": {
+							"fileName": "`cyclefilterreptype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefilterroom`"
+						},
+						"destination": {
+							"fileName": "`cyclefilterroom`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefiltersegment`"
+						},
+						"destination": {
+							"fileName": "`cyclefiltersegment`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefilterspecialty`"
+						},
+						"destination": {
+							"fileName": "`cyclefilterspecialty`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclefiltervisittype`"
+						},
+						"destination": {
+							"fileName": "`cyclefiltervisittype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`cyclemodules`"
+						},
+						"destination": {
+							"fileName": "`cyclemodules`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`district`"
+						},
+						"destination": {
+							"fileName": "`district`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`dmreps`"
+						},
+						"destination": {
+							"fileName": "`dmreps`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`grouping`"
+						},
+						"destination": {
+							"fileName": "`grouping`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`healthissues`"
+						},
+						"destination": {
+							"fileName": "`healthissues`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospital`"
+						},
+						"destination": {
+							"fileName": "`hospital`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitalrooms`"
+						},
+						"destination": {
+							"fileName": "`hospitalrooms`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitalsegment`"
+						},
+						"destination": {
+							"fileName": "`hospitalsegment`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitalterritory`"
+						},
+						"destination": {
+							"fileName": "`hospitalterritory`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitaltype`"
+						},
+						"destination": {
+							"fileName": "`hospitaltype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitalvisit`"
+						},
+						"destination": {
+							"fileName": "`hospitalvisit`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`hospitalvisitrecord`"
+						},
+						"destination": {
+							"fileName": "`hospitalvisitrecord`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`house`"
+						},
+						"destination": {
+							"fileName": "`house`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`housecategorization`"
+						},
+						"destination": {
+							"fileName": "`housecategorization`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`housecategory`"
+						},
+						"destination": {
+							"fileName": "`housecategory`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`issuehc`"
+						},
+						"destination": {
+							"fileName": "`issuehc`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulegroup`"
+						},
+						"destination": {
+							"fileName": "`modulegroup`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulepages`"
+						},
+						"destination": {
+							"fileName": "`modulepages`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulereptype`"
+						},
+						"destination": {
+							"fileName": "`modulereptype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulestatistics`"
+						},
+						"destination": {
+							"fileName": "`modulestatistics`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`pagecategory`"
+						},
+						"destination": {
+							"fileName": "`pagecategory`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`pagestatistics`"
+						},
+						"destination": {
+							"fileName": "`pagestatistics`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`product`"
+						},
+						"destination": {
+							"fileName": "`product`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`productissue`"
+						},
+						"destination": {
+							"fileName": "`productissue`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`province`"
+						},
+						"destination": {
+							"fileName": "`province`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`pwcomplexity`"
+						},
+						"destination": {
+							"fileName": "`pwcomplexity`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`representativecheckin`"
+						},
+						"destination": {
+							"fileName": "`representativecheckin`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`representativedesignation`"
+						},
+						"destination": {
+							"fileName": "`representativedesignation`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`representatives`"
+						},
+						"destination": {
+							"fileName": "`representatives`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`representativeschedule`"
+						},
+						"destination": {
+							"fileName": "`representativeschedule`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`reptype`"
+						},
+						"destination": {
+							"fileName": "`reptype`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`reptypehousecat`"
+						},
+						"destination": {
+							"fileName": "`reptypehousecat`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`reptypeproduct`"
+						},
+						"destination": {
+							"fileName": "`reptypeproduct`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`rmdm`"
+						},
+						"destination": {
+							"fileName": "`rmdm`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`room`"
+						},
+						"destination": {
+							"fileName": "`room`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`schedulevisit`"
+						},
+						"destination": {
+							"fileName": "`schedulevisit`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`segmentation`"
+						},
+						"destination": {
+							"fileName": "`segmentation`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`simpleacl`"
+						},
+						"destination": {
+							"fileName": "`simpleacl`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`simpleaclprivileges`"
+						},
+						"destination": {
+							"fileName": "`simpleaclprivileges`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`specialist`"
+						},
+						"destination": {
+							"fileName": "`specialist`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`specialistconsent`"
+						},
+						"destination": {
+							"fileName": "`specialistconsent`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`specialty`"
+						},
+						"destination": {
+							"fileName": "`specialty`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`specialtyvisit`"
+						},
+						"destination": {
+							"fileName": "`specialtyvisit`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`subspecialty`"
+						},
+						"destination": {
+							"fileName": "`subspecialty`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`territory`"
+						},
+						"destination": {
+							"fileName": "`territory`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`territoryassignment`"
+						},
+						"destination": {
+							"fileName": "`territoryassignment`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`territorycoveragec`"
+						},
+						"destination": {
+							"fileName": "`territorycoveragec`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`territorycoveraged`"
+						},
+						"destination": {
+							"fileName": "`territorycoveraged`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`territorycoveragep`"
+						},
+						"destination": {
+							"fileName": "`territorycoveragep`"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-01-13T08:18:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,11 @@
+{
+	"name": "01_PRIME_AZURE",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://danaptstasspkwerdekdgyqx.dfs.core.windows.net/"
+		}
+	}
+}

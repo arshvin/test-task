@@ -1,0 +1,24 @@
+{
+	"name": "Trigger_hmz",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "01_PRIME_INITIAL",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2021-01-13T02:43:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

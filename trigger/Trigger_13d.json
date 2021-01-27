@@ -1,0 +1,24 @@
+{
+	"name": "Trigger_13d",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "04_EMS",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2021-01-14T07:56:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
