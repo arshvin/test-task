@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure Ansible packages for SELinux are installed
   yum:
     name: libselinux-python

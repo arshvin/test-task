@@ -1,6 +1,5 @@
 ---
-
 webapp_server_port: 9090
 
 webapp_catalog_location: /opt/webapp
-webapp_file_name_path: "{{ webapp_catalog_location }}/webapp.jar"  
+webapp_file_name_path: "{{ webapp_catalog_location }}/webapp.jar"

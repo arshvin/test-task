@@ -1,5 +1,4 @@
 ---
-
 - name: Check webapp file presence
   stat:
     path: "{{ webapp_file_name_path }}"
@@ -16,5 +15,5 @@
         state: directory
 
     - name: Copy the artifact to right place
-      shell: "/bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f"
+      shell: /bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f
   when: not webapp_file.stat.exists

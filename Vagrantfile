@@ -10,11 +10,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.hostname = "testhost.local"
   # config.vm.network "public_network"
-  
+
   config.vm.provision "shell", inline: <<-SHELL
      yum -y install epel-release
      yum -y install ansible
-     
+
      ansible-playbook /vagrant/provision/vagrant.yml
   SHELL
 end

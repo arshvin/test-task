@@ -1,5 +1,4 @@
 ---
-
 - name: Install the package
   yum:
     name: nginx

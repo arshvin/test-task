@@ -1,5 +1,4 @@
 ---
-
 - name: Install EPEL repo
   yum:
     name: epel-release
@@ -7,6 +6,6 @@
 
 - name: Import EPEL GPG key
   rpm_key:
-    key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
     state: present
   ignore_errors: "{{ ansible_check_mode }}"

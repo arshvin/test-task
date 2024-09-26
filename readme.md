@@ -1,10 +1,11 @@
 # Example of test Webapp and its deploy.
-## Destionation
+## Purpose
 The `Webapp` exposes REST-API through which an user can gather information about:
 1. number of available CPUs for app
 2. number of IPv4 addresses and name of interfaces to which these IPs have assigned
 3. current date
 4. current time
+
 ## How to use it
 In order to deploy and to try it, a number of steps have to be done:
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) environments for Linux
@@ -13,7 +14,7 @@ In order to deploy and to try it, a number of steps have to be done:
 4. Invoke the commands:
 
 ```bash
-for path in cpu ip date time; do  
+for path in cpu ip date time; do
     curl -s -L --insecure http://localhost:8080/$path | python -m json.tool;
 done
 ```
