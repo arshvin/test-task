@@ -1,33 +1,34 @@
+---
 - name: Ensure presense of {{ cert_generator_catalog_destination }}
   file:
-    path: '{{ cert_generator_catalog_destination }}'
+    path: "{{ cert_generator_catalog_destination }}"
     state: directory
 
 - name: Check presence of key file
   stat:
-    path: '{{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }}'
+    path: "{{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }}"
   register: cert_generator_key_file
 
 - block:
-  - name: Generating openssl config for unattended creating of the certificate
-    template:
-      src: openssl_config.j2
-      dest: /tmp/tmp_openssl.conf
+    - name: Generating openssl config for unattended creating of the certificate
+      template:
+        src: openssl_config.j2
+        dest: /tmp/tmp_openssl.conf
 
-  - name: Creation of cert
-    shell: |
-      /bin/openssl req -new -newkey rsa:{{ cert_generator_key_lenght }} -x509 -sha256 -days {{ cert_generator_days }} \
-      -nodes -out {{ cert_generator_catalog_destination }}/{{ cert_generator_cert_name }} \
-      -keyout {{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }} -config /tmp/tmp_openssl.conf \
+    - name: Creation of cert
+      shell: |
+        /bin/openssl req -new -newkey rsa:{{ cert_generator_key_lenght }} -x509 -sha256 -days {{ cert_generator_days }} \
+        -nodes -out {{ cert_generator_catalog_destination }}/{{ cert_generator_cert_name }} \
+        -keyout {{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }} -config /tmp/tmp_openssl.conf \
 
-  - name: Remove generated openssl config
-    file:
-      path: /tmp/tmp_openssl.conf
-      state: absent
+    - name: Remove generated openssl config
+      file:
+        path: /tmp/tmp_openssl.conf
+        state: absent
 
-  - name: Set up right permission to key file
-    file:
-      path: '{{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }}'
-      mode: 0400
+    - name: Set up right permission to key file
+      file:
+        path: "{{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }}"
+        mode: "0400"
 
   when: cert_generator_overrite_existed or not cert_generator_key_file.stat.exists

@@ -1,6 +1,7 @@
+---
 dependencies:
-- role: cert-generator
-  cert_generator_catalog_destination: '{{ nginx_cert_location }}'
-  cert_generator_key_name: '{{ nginx_key_file }}'
-  cert_generator_cert_name: '{{ nginx_cert_file }}'
-  cert_generator_overrite_existed: yes
+  - role: cert-generator
+    cert_generator_catalog_destination: "{{ nginx_cert_location }}"
+    cert_generator_key_name: "{{ nginx_key_file }}"
+    cert_generator_cert_name: "{{ nginx_cert_file }}"
+    cert_generator_overrite_existed: true

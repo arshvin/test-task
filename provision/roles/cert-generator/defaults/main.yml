@@ -1,3 +1,4 @@
+---
 cert_generator_catalog_destination: /etc/ssl/certs
 
 cert_generator_key_name: MyKey.key
@@ -6,7 +7,7 @@ cert_generator_key_lenght: 4096
 cert_generator_cert_name: MyCert.crt
 cert_generator_days: 365
 
-cert_generator_overrite_existed: no
+cert_generator_overrite_existed: false
 
 cert_generator_config:
   C: RU

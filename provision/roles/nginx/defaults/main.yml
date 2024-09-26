@@ -1,4 +1,5 @@
-nginx_tls_use: yes
+---
+nginx_tls_use: true
 
 nginx_cert_location: /etc/nginx
 nginx_key_file: cert.key
