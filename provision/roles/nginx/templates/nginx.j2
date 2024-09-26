@@ -37,7 +37,7 @@ http {
 
         {% else %}
 
-        ##HERE WE ARE INCLUDING OWER LOCATIONS ###
+        ##HERE WE ARE INCLUDING OTHER LOCATIONS ###
         include /etc/nginx/conf.d/*.conf;
 
         {% endif %}
@@ -68,7 +68,7 @@ http {
         #Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
-        ##HERE WE ARE INCLUDING OWER LOCATIONS ###
+        ##HERE WE ARE INCLUDING OTHER LOCATIONS ###
         include /etc/nginx/conf.d/*.conf;
 
         error_page 404 /404.html;
