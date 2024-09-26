@@ -1,5 +1,3 @@
----
-
 - name: Configure the Server
   template:
     src: nginx.j2

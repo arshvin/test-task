@@ -1,5 +1,3 @@
----
-
 - name: Installing Nginx
   include: install.yml
   tags:

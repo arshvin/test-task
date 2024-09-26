@@ -7,6 +7,6 @@ import prived.medved.response.enums.EntityType;
 @Data
 @AllArgsConstructor
 public class SimpleEntity {
-    public EntityType type;
-    public String payload;
+  public EntityType type;
+  public String payload;
 }

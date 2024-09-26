@@ -1,5 +1,3 @@
----
-
 - include: cert_gen.yml
   tags:
   - cert-generator

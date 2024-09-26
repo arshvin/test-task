@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class IFaceIPPair {
-    public String name;
-    public String ip;
+  public String name;
+  public String ip;
 }
