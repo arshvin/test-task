@@ -1,19 +1,19 @@
 ---
 - name: Check webapp file presence
   stat:
-    path: '{{ webapp_file_name_path }}'
+    path: "{{ webapp_file_name_path }}"
   register: webapp_file
 
 - name: Build the artifact
   block:
-  - name: Launch Gradle wrapper
-    shell: /vagrant/webapp/gradlew -b /vagrant/webapp/build.gradle build
+    - name: Launch Gradle wrapper
+      shell: /vagrant/webapp/gradlew -b /vagrant/webapp/build.gradle build
 
-  - name: Ensure needed directory
-    file:
-      path: '{{ webapp_catalog_location }}'
-      state: directory
+    - name: Ensure needed directory
+      file:
+        path: "{{ webapp_catalog_location }}"
+        state: directory
 
-  - name: Copy the artifact to right place
-    shell: /bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f
+    - name: Copy the artifact to right place
+      shell: /bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f
   when: not webapp_file.stat.exists

@@ -1,3 +1,4 @@
+---
 - name: Provision the machine
   hosts: localhost
   become: true
