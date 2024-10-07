@@ -22,11 +22,11 @@ repos:
     - '2'
 
 - repo: https://github.com/ansible-community/ansible-lint.git
-  rev: v6.22.1
+  rev: v24.9.2
   hooks:
   - id: ansible-lint
     files: provision/.*$
     always_run: false
     args:
-    - --write
+    - --fix
     - provision/

@@ -1,19 +1,24 @@
 ---
 - name: Check webapp file presence
-  stat:
+  ansible.builtin.stat:
     path: "{{ webapp_file_name_path }}"
   register: webapp_file
 
 - name: Build the artifact
+  when: not webapp_file.stat.exists
   block:
     - name: Launch Gradle wrapper
-      shell: "{{ webapp_build_tool }}/gradlew -b {{ webapp_build_tool }}/build.gradle build"
+      ansible.builtin.command: "{{ webapp_build_tool }}/gradlew -b {{ webapp_build_tool }}/build.gradle build"
+      register: app_build
+      changed_when: app_build.rc != 0
 
     - name: Ensure needed directory
-      file:
+      ansible.builtin.file:
         path: "{{ webapp_catalog_location }}"
         state: directory
+        mode: "0755"
 
     - name: Copy the artifact to right place
-      shell: /bin/cp {{ webapp_build_tool }}/build/libs/*jar {{ webapp_file_name_path }} -f
-  when: not webapp_file.stat.exists
+      ansible.builtin.shell: /bin/cp {{ webapp_build_tool }}/build/libs/*jar {{ webapp_file_name_path }} -f
+      register: app_copy
+      changed_when: app_copy.rc != 0

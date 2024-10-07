@@ -1,5 +1,5 @@
 ---
 - name: Install the package
-  yum:
+  ansible.builtin.dnf:
     name: nginx
     state: present

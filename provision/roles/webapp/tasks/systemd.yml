@@ -1,18 +1,13 @@
 ---
 - name: Generate systemd unit
-  template:
+  ansible.builtin.template:
     src: systemd-unit.j2
     dest: /etc/systemd/system/webapp.service
-  register: webapp_systemd
+    mode: "0755"
+  notify: Systemd nginx restart
 
 - name: Ensuring enabled state of the service
-  systemd:
+  ansible.builtin.systemd:
     name: webapp
     enabled: true
     state: started
-
-- name: Ensuring the service is noticed due to systemd unit have changed
-  systemd:
-    name: nginx
-    state: restarted
-  when: webapp_systemd.changed

@@ -1,5 +1,5 @@
 ---
 - name: Install OpenJdk8
-  dnf:
+  ansible.builtin.dnf:
     name: java-1.8.0-openjdk-devel
     state: present
