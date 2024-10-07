@@ -1,7 +1,7 @@
 ---
 - name: Ensure Ansible packages for SELinux are installed
-  yum:
-    name: libselinux-python
+  dnf:
+    name: python3-libselinux
     state: present
 
 - name: Completely disable SELinux
