@@ -7,7 +7,7 @@
 - name: Build the artifact
   block:
     - name: Launch Gradle wrapper
-      shell: /vagrant/webapp/gradlew -b /vagrant/webapp/build.gradle build
+      shell: "{{ webapp_build_tool }}/gradlew -b {{ webapp_build_tool }}/build.gradle build"
 
     - name: Ensure needed directory
       file:
@@ -15,5 +15,5 @@
         state: directory
 
     - name: Copy the artifact to right place
-      shell: /bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f
+      shell: /bin/cp {{ webapp_build_tool }}/build/libs/*jar {{ webapp_file_name_path }} -f
   when: not webapp_file.stat.exists
