@@ -28,11 +28,6 @@
       register: cert_creating
       changed_when: cert_creating.rc != 0
 
-    - name: Remove generated openssl config
-      ansible.builtin.file:
-        path: /tmp/tmp_openssl.conf
-        state: absent
-
     - name: Set up right permission to key file
       ansible.builtin.file:
         path: "{{ cert_generator_catalog_destination }}/{{ cert_generator_key_name }}"

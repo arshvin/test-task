@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
      dnf -y install epel-release
      dnf -y install ansible
+     dnf -y install docker # If it's required to build docker images through ./gradlew docker
 
      ansible-playbook /vagrant/provision/vagrant.yml --diff
   SHELL
