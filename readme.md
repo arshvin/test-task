@@ -14,8 +14,8 @@ In order to deploy and to try it, a number of steps have to be done:
 4. Invoke the commands:
 
 ```bash
-for path in cpu ip date time; do
-    curl -s -L --insecure http://localhost:8080/$path | python -m json.tool;
+for item in cpu ip date time; do
+    curl -s -L --insecure http://localhost:8080/$item | python -m json.tool;
 done
 ```
 and watch the output

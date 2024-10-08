@@ -1,6 +1,7 @@
 ---
 webapp_server_port: 9090
 
+webapp_base_filename: webapp-spring-boot.jar
 webapp_catalog_location: /opt/webapp
 webapp_build_tool: /vagrant/webapp-spring-boot
-webapp_file_name_path: "{{ webapp_catalog_location }}/webapp.jar"
+webapp_file_name_path: "{{ webapp_catalog_location }}/{{ webapp_base_filename }}"

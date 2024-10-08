@@ -20,6 +20,6 @@ Vagrant.configure("2") do |config|
      dnf -y install epel-release
      dnf -y install ansible
 
-     ansible-playbook /vagrant/provision/vagrant.yml
+     ansible-playbook /vagrant/provision/vagrant.yml --diff
   SHELL
 end

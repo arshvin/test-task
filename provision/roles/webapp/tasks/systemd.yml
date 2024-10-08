@@ -2,12 +2,12 @@
 - name: Generate systemd unit
   ansible.builtin.template:
     src: systemd-unit.j2
-    dest: /etc/systemd/system/webapp.service
+    dest: /etc/systemd/system/webapp-spring-boot.service
     mode: "0755"
-  notify: Systemd nginx restart
+  notify: Systemd webapp-spring-boot restart
 
 - name: Ensuring enabled state of the service
   ansible.builtin.systemd:
-    name: webapp
+    name: webapp-spring-boot
     enabled: true
     state: started
