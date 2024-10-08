@@ -19,3 +19,9 @@ for item in cpu ip date time; do
 done
 ```
 and watch the output
+
+5. Once it's done, to remove the VM, the command is helpful:
+
+```bash
+vagrant destroy default
+```
