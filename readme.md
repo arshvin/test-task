@@ -15,6 +15,7 @@ In order to deploy and to try it, a number of steps have to be done:
 
 ```bash
 for item in cpu ip date time; do
+    echo "Requesting of item $item: ";
     curl -s -L --insecure http://localhost:8080/$item | python -m json.tool;
 done
 ```
