@@ -1,0 +1,5 @@
+---
+- name: Systemd webapp-spring-boot restart
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted

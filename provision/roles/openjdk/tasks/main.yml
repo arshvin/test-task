@@ -1,5 +1,5 @@
 ---
-- name: Install OpenJdk8
-  yum:
-    name: java-1.8.0-openjdk-devel
+- name: Install OpenJDK21
+  ansible.builtin.dnf:
+    name: java-21-openjdk-devel
     state: present

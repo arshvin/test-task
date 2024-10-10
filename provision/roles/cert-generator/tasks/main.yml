@@ -1,4 +1,5 @@
 ---
-- include: cert_gen.yml
+- name: Certificate operations
+  ansible.builtin.include_tasks: cert_gen.yml
   tags:
     - cert-generator

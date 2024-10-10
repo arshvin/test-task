@@ -1,7 +1,7 @@
-.gradle
-.idea
+.gradle/
+.idea/
 .settings
-bin
-build
-gradle
+bin/
+build/
+gradle/
 gradlew

@@ -1,19 +1,25 @@
 ---
 - name: Check webapp file presence
-  stat:
+  ansible.builtin.stat:
     path: "{{ webapp_file_name_path }}"
   register: webapp_file
 
 - name: Build the artifact
   block:
     - name: Launch Gradle wrapper
-      shell: /vagrant/webapp/gradlew -b /vagrant/webapp/build.gradle build
+      ansible.builtin.command: "{{ webapp_build_tool }}/gradlew -b {{ webapp_build_tool }}/build.gradle build"
+      register: app_build
+      changed_when: app_build.rc != 0
 
     - name: Ensure needed directory
-      file:
+      ansible.builtin.file:
         path: "{{ webapp_catalog_location }}"
         state: directory
+        mode: "0755"
 
     - name: Copy the artifact to right place
-      shell: /bin/cp /vagrant/webapp/build/libs/*jar {{ webapp_file_name_path }} -f
-  when: not webapp_file.stat.exists
+      ansible.builtin.copy:
+        src: "{{ webapp_build_tool }}/build/libs/{{ webapp_base_filename }}"
+        dest: "{{ webapp_file_name_path }}"
+        mode: "0644"
+      notify: Systemd webapp-spring-boot restart

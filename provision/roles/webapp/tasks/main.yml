@@ -1,12 +1,12 @@
 ---
 - name: Build the artifact
-  include: build.yml
+  ansible.builtin.include_tasks: build.yml
   tags:
     - webapp
     - webapp-build
 
 - name: Systemd settings
-  include: systemd.yml
+  ansible.builtin.include_tasks: systemd.yml
   tags:
     - webapp
     - webapp-systemd
