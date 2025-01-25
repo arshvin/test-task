@@ -15,11 +15,53 @@ In order to deploy and to try it, a number of steps have to be done:
 
 ```bash
 for item in cpu ip date time; do
-    echo "Requesting of item $item: ";
+    echo "\nRequesting of item $item:\n";
     curl -s -L --insecure http://localhost:8080/$item | python -m json.tool;
 done
 ```
-and watch the output
+
+and watch the output. You shall see something like:
+
+```bash
+
+Requesting of item cpu:
+
+{
+    "type": "CPU_AMOUNT",
+    "payload": "2"
+}
+
+Requesting of item ip:
+
+{
+    "type": "IP_V4",
+    "count": "EVEN",
+    "payload": [
+        {
+            "name": "eth0",
+            "ip": "10.0.2.15"
+        },
+        {
+            "name": "lo",
+            "ip": "127.0.0.1"
+        }
+    ]
+}
+
+Requesting of item date:
+
+{
+    "type": "DATE_NOW",
+    "payload": "2024 10 08"
+}
+
+Requesting of item time:
+
+{
+    "type": "TIME_NOW",
+    "payload": "02:57:30"
+}
+```
 
 5. Once it's done, to remove the VM, the command is helpful:
 
