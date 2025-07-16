@@ -20,9 +20,11 @@ repos:
     - --autofix
     - --indent
     - '2'
-  # - id: pretty-format-rust
-  #   args:
-  #   - --autofix
+  - id: pretty-format-rust
+    args:
+    - --autofix
+    - --manifest-path
+    - webapp-rust/Cargo.toml
 
 - repo: https://github.com/ansible-community/ansible-lint.git
   rev: v24.9.2
