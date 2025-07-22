@@ -34,20 +34,20 @@ fn default_action(c: &Context) {
 
     let port = c.string_flag("port").expect("--port/-p flag is required");
 
-    run_server(address,port);
+    run_server(address, port);
 }
 
 #[tokio::main]
 async fn run_server(addr: String, port: String) {
     let mut it = addr.split('.');
-    let ip = if let [Some(o0), Some(o1), Some(o2), Some(o3), None] =
+    let ip = if let [Some(octet0), Some(octet1), Some(octet2), Some(octet3), None] =
         [it.next(), it.next(), it.next(), it.next(), it.next()]
     {
         let mut arr: [u8; 4] = [0; 4];
-        arr[0] = o0.parse::<u8>().unwrap();
-        arr[1] = o1.parse::<u8>().unwrap();
-        arr[2] = o2.parse::<u8>().unwrap();
-        arr[3] = o3.parse::<u8>().unwrap();
+        arr[0] = octet0.parse::<u8>().unwrap();
+        arr[1] = octet1.parse::<u8>().unwrap();
+        arr[2] = octet2.parse::<u8>().unwrap();
+        arr[3] = octet3.parse::<u8>().unwrap();
         arr
     } else {
         panic!("Could not parse IP addr v4 argument")

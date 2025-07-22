@@ -1,8 +1,7 @@
-
 use serde::Serialize;
 
 #[derive(Serialize, Debug)]
-struct cpu_amount{
+struct CpuAmount {
     r#type: String,
-    payload: u8
+    payload: u8,
 }
