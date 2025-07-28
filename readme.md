@@ -1,10 +1,10 @@
 # Example of test Webapp and its deploy.
 ## Purpose
 The `Webapp` exposes REST-API through which an user can gather information about:
-1. number of available CPUs for app
-2. number of IPv4 addresses and name of interfaces to which these IPs have assigned
-3. current date
-4. current time
+1. number of available CPUs for app (`/cpu` path)
+2. number of IPv4 addresses and name of interfaces to which these IPs have assigned (`/ip` path)
+3. current date (`/date` path)
+4. current time (`/time` path)
 
 ## How to use it
 In order to deploy and to try it, a number of steps have to be done:
