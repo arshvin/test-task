@@ -1,52 +1,16 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"net/netip"
-	"os"
 	"strings"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	gopsutilCpu "github.com/shirou/gopsutil/v4/cpu"
 	gopsutilNet "github.com/shirou/gopsutil/v4/net"
 )
-
-const (
-	dateNow int = iota * 2
-	timeNow
-	cpuAmount
-	addrIpV4Amount
-
-	even int = iota << 2
-	odd
-)
-
-var (
-	entityTypePretty map[int]string
-	parityPretty     map[int]string
-)
-
-func init() {
-	entityTypePretty = make(map[int]string)
-	entityTypePretty[dateNow] = "DATE_NOW"
-	entityTypePretty[timeNow] = "TIME_NOW"
-	entityTypePretty[cpuAmount] = "CPU_AMOUNT"
-	entityTypePretty[addrIpV4Amount] = "IP_V4"
-
-	parityPretty = make(map[int]string)
-	parityPretty[even] = "EVEN"
-	parityPretty[odd] = "ODD"
-}
-
-func entityTypeOutput(n int) string {
-	return entityTypePretty[n]
-}
-
-func parityOutput(n int) string {
-	return parityPretty[n]
-}
 
 func CpuAmount(c echo.Context) error {
 	nproc, err := gopsutilCpu.Counts(true)
@@ -83,8 +47,6 @@ func AddrIpV4Amount(c echo.Context) error {
 			}
 
 			if ipParsed.Is4() {
-				fmt.Fprintf(os.Stdout, "Adding of ifConf.Name:%s ifConf.Addrs:%s\n", ifConf.Name, ifConf.Addrs)
-
 				iFsInfo = append(iFsInfo, &IfInfo{
 					Name:      ifConf.Name,
 					IpAddress: ipParsed.String(),
@@ -99,6 +61,22 @@ func AddrIpV4Amount(c echo.Context) error {
 		response.Count = parityOutput(odd)
 	} else {
 		response.Count = parityOutput(even)
+	}
+
+	return c.JSON(http.StatusOK, response)
+}
+
+func CurrentDateTime(c echo.Context, dateOnly bool) error {
+	response := &DateTimeNow{}
+	now := time.Now()
+
+	switch dateOnly {
+	case true:
+		response.EntityType = entityTypeOutput(dateNow)
+		response.Payload = now.Format(time.DateOnly)
+	case false:
+		response.EntityType = entityTypeOutput(timeNow)
+		response.Payload = now.Format(time.TimeOnly)
 	}
 
 	return c.JSON(http.StatusOK, response)
