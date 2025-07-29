@@ -39,7 +39,8 @@ func AddrIpV4Amount(c echo.Context) error {
 	for _, ifConf := range interfaces {
 		for _, ifIpAddr := range ifConf.Addrs {
 
-			ipAddr := strings.Split(ifIpAddr.Addr, "/")[0] // Because gopsutil returns ip addr with mask in one string which will not be parsed
+			// Due to gopsutil returns IP address with MASK in one string which will not be parsed, we need only first of both
+			ipAddr := strings.Split(ifIpAddr.Addr, "/")[0]
 			ipParsed, err := netip.ParseAddr(ipAddr)
 			if err != nil {
 				log.Errorf("Could not parse IP address: %s: %s", ipAddr, err)

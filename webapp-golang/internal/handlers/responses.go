@@ -5,21 +5,18 @@ type CpuResponse struct {
 	Payload    int    `json:"payload"`
 }
 
-
-
 type IfInfo struct {
-	Name       string `json:"name"`
-	IpAddress  string `json:"ip"`
+	Name      string `json:"name"`
+	IpAddress string `json:"ip"`
 }
 
 type AddrIpV4Response struct {
-	EntityType string `json:"type"`
-	Count    string    `json:"count"`
-	Payload  []*IfInfo    `json:"payload"`
+	EntityType string    `json:"type"`
+	Count      string    `json:"count"`
+	Payload    []*IfInfo `json:"payload"`
 }
-
 
 type DateTimeNow struct {
 	EntityType string `json:"type"`
-	Payload    string    `json:"payload"`
+	Payload    string `json:"payload"`
 }

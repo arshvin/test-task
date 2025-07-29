@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-
 	handlers "test-webapp/internal/handlers"
 
 	"github.com/alecthomas/kingpin/v2"
@@ -24,7 +23,7 @@ func main() {
 	e.Use(middleware.Logger())
 
 	e.GET("/", func(c echo.Context) error {
-		return c.JSONPretty(http.StatusOK, e.Routes(),"  ")
+		return c.JSONPretty(http.StatusOK, e.Routes(), "  ")
 	}).Name = "available-routes"
 
 	e.GET("/cpu", func(c echo.Context) error {
