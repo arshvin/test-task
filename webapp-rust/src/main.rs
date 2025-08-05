@@ -2,8 +2,8 @@ use std::env;
 
 pub mod handlers;
 
+use poem::{Route, Server, get, listener::TcpListener};
 use seahorse::{App, Context, Flag, FlagType};
-use warp::Filter;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -17,47 +17,33 @@ fn main() {
                 .alias("a"),
         )
         .flag(
-            Flag::new("port", FlagType::String)
+            Flag::new("port", FlagType::Uint)
                 .description("Bind port to (required)")
                 .alias("p"),
         )
-        .action(default_action);
+        .action(process_args);
 
     app.run(args);
 }
 
-fn default_action(c: &Context) {
+fn process_args(c: &Context) {
     let address = match c.string_flag("address") {
         Ok(addr) => addr,
         Err(_) => "0.0.0.0".to_string(),
     };
 
-    let port = c.string_flag("port").expect("--port/-p flag is required");
+    let port = c.uint_flag("port").expect("--port/-p flag is required");
 
-    run_server(address, port);
+    let _ = ignition(format!("{}:{}", address, port));
 }
 
 #[tokio::main]
-async fn run_server(addr: String, port: String) {
-    let mut it = addr.split('.');
-    let ip = if let [Some(octet0), Some(octet1), Some(octet2), Some(octet3), None] =
-        [it.next(), it.next(), it.next(), it.next(), it.next()]
-    {
-        let mut arr: [u8; 4] = [0; 4];
-        arr[0] = octet0.parse::<u8>().unwrap();
-        arr[1] = octet1.parse::<u8>().unwrap();
-        arr[2] = octet2.parse::<u8>().unwrap();
-        arr[3] = octet3.parse::<u8>().unwrap();
-        arr
-    } else {
-        panic!("Could not parse IP addr v4 argument")
-    };
+async fn ignition(addr: String) -> Result<(), std::io::Error> {
+    let routes = Route::new()
+        .at("/cpu", get(handlers::cpu_info))
+        .at("/ip", get(handlers::net_info))
+        .at("/time", get(handlers::get_time))
+        .at("/date", get(handlers::get_date));
 
-    let Ok(p) = port.parse::<u16>() else {
-        panic!("Could not parse port argument")
-    };
-
-    let routes = warp::any().map(|| "Hello, World!");
-
-    warp::serve(routes).run((ip, p)).await;
+    Server::new(TcpListener::bind(addr)).run(routes).await
 }
