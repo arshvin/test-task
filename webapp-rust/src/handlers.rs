@@ -1,6 +1,7 @@
 use poem::{handler, web::Json};
 use serde::Serialize;
-use sysinfo::{CpuRefreshKind, System};
+use std::net::IpAddr::V4;
+use sysinfo::{CpuRefreshKind, Networks, System};
 
 #[derive(Serialize, Debug)]
 enum EntityType {
@@ -10,12 +11,6 @@ enum EntityType {
     DATE_NOW,
 }
 
-#[allow(dead_code)]
-#[derive(Serialize, Debug)]
-enum IpAddrParity {
-    EVEN,
-    ODD,
-}
 #[derive(Serialize, Debug)]
 struct CpuAmount {
     #[serde(rename(serialize = "type"))]
@@ -34,9 +29,61 @@ pub fn cpu_info() -> Json<CpuAmount> {
     })
 }
 
+#[allow(dead_code)]
+#[derive(Serialize, Debug)]
+enum IpAddrParity {
+    EVEN,
+    ODD,
+}
+#[derive(Serialize, Debug)]
+struct IfInfo {
+    name: String,
+    #[serde(rename(serialize = "ip"))]
+    ip_addr: String,
+}
+
+#[derive(Serialize, Debug)]
+struct NetInfo {
+    #[serde(rename(serialize = "type"))]
+    entity_type: EntityType,
+    count: IpAddrParity,
+    payload: Vec<IfInfo>,
+}
+
 #[handler]
-pub fn net_info() -> &'static str {
-    "Got NET info"
+pub fn net_info() -> Json<NetInfo> {
+    let mut net = Networks::new_with_refreshed_list();
+
+    let mut collector: Vec<(String, String)> = Vec::new();
+
+    for (if_name, if_data) in &net {
+        for net_data in if_data.ip_networks() {
+            match net_data.addr {
+                V4(addr) => {
+                    collector.push((
+                        if_name.clone(),
+                        addr.octets().map(|o| o.to_string()).join("."),
+                    ));
+                }
+                _ => {}
+            }
+        }
+    }
+
+    Json(NetInfo {
+        entity_type: EntityType::IP_V4,
+        count: match collector.len() % 2 {
+            0 => IpAddrParity::EVEN,
+            _ => IpAddrParity::ODD,
+        },
+        payload: collector
+            .iter()
+            .map(|t| IfInfo {
+                name: t.0.clone(),
+                ip_addr: t.1.clone(),
+            })
+            .collect(),
+    })
 }
 
 #[handler]
