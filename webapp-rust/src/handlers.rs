@@ -5,8 +5,11 @@ use sysinfo::{CpuRefreshKind, Networks, System};
 
 #[derive(Serialize, Debug)]
 enum EntityType {
-    CPU_AMOUNT,
-    IP_V4,
+    #[serde(rename(serialize = "CPU_AMOUNT"))]
+    CpuAmount,
+
+    #[serde(rename(serialize = "IP_V4"))]
+    IpV4,
     TIME_NOW,
     DATE_NOW,
 }
@@ -24,12 +27,11 @@ pub fn cpu_info() -> Json<CpuAmount> {
     sys.refresh_cpu_list(CpuRefreshKind::everything());
 
     Json(CpuAmount {
-        entity_type: EntityType::CPU_AMOUNT,
+        entity_type: EntityType::CpuAmount,
         payload: sys.cpus().len(),
     })
 }
 
-#[allow(dead_code)]
 #[derive(Serialize, Debug)]
 enum IpAddrParity {
     EVEN,
@@ -71,7 +73,7 @@ pub fn net_info() -> Json<NetInfo> {
     }
 
     Json(NetInfo {
-        entity_type: EntityType::IP_V4,
+        entity_type: EntityType::IpV4,
         count: match collector.len() % 2 {
             0 => IpAddrParity::EVEN,
             _ => IpAddrParity::ODD,
