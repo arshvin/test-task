@@ -20,6 +20,9 @@ repos:
     - --autofix
     - --indent
     - '2'
+  - id: pretty-format-golang
+    args:
+    - --autofix
 
 - repo: https://github.com/ansible-community/ansible-lint.git
   rev: v24.9.2
