@@ -9,3 +9,6 @@ description = "Test webapp for tasting of rust"
 seahorse = "2.2"
 poem = "3.1.12"
 tokio = { version = "1.39.1", features = ["rt-multi-thread", "macros"]}
+serde_json = "1.0.68"
+serde = "1.0.219"
+sysinfo = "0.36.1"
